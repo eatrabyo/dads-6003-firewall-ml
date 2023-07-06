@@ -1,11 +1,7 @@
-# DADS 6003: Applied Machine Learning
+# DADS 6003 - Applied Machine Learning: Internet Firewall Data Machine Learning Project.
 
-## Topic: Internet Firewall Data
-
-## Source
-1. [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Internet+Firewall+Data#)
-
-## EDA
+## 1. Intro
+## 2. EDA
 ### 2.1 Exploratory of Action
 ![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/14e928be-6b5d-4c9b-a293-6650c66f0ac3)
 
@@ -58,3 +54,21 @@ graph between source port and destination port each action
 ![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/097b67e3-f277-4a0b-8306-e71117125961)
 
 graph between NAT source port and NAT destination port each action
+
+
+## 3. Machine Learning Algorithm
+### 3.1 Tuning Hyperparameter
+
+## 4. Evaluation
+### 4.1 Plotting Learning Curve
+### 4.2 F1-Score
+
+## Contributors
+* Itthisak Pratukaew
+* Nattasorn Tanpichai
+* Pinyawat Sabsanhor
+* Patchadol Ratanapittayaruk
+* Suthida Jumlongrasd
+
+## Credits
+* [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Internet+Firewall+Data#)
