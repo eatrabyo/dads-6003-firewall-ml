@@ -1,24 +1,41 @@
 # DADS 6003 - Applied Machine Learning: Internet Firewall Data Machine Learning Project.
 
-## 1. Intro
+## 1. Introduction
+This project is part of the DADS 6003 Applied Machine Learning subject. The objective is to analyze the provided data, construct machine learning models using pipelines, and evaluate the outcomes. The data utilized in this project is collected from the UCI Machine Learning Repository and consists of internet traffic records from UCI's firewall.
+There are 12 features in the dataset, which include:
+  * Source Port
+  * Destination Port
+  * NAT Source Port
+  * NAT Destination Port
+  * Action
+  * Bytes
+  * Bytes Sent
+  * Bytes Received
+  * Packets
+  * Elapsed Time (sec)
+  * pkts_sent (Packets Sent)
+  * pkts_received (Packets Received)
+  
 ## 2. EDA
-### 2.1 Exploratory of Action
+### 2.1 Action
 ![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/14e928be-6b5d-4c9b-a293-6650c66f0ac3)
 
-Target distribution is imbalance data because "allow" is too high and "reset-both" is very rare. Especially "reset-both" will be hard to predict
+Fig. 1 (Histogram of Action)
 
-### 2.2 Exploratory of Packets&Elapsed Time
+The target variable in this project is the "action," which consists of four categories: "allow," "drop," "deny," and "reset-both." As depicted in Figure 1, the distribution of the action data is imbalanced. The most frequently occurring action is "allow" with a frequency of 37,640, while the least frequent action is "reset-both" with a count of 54.
+
+### 2.2 Packets & Elapsed Time
 ![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/fe613afd-16ea-499e-bc6b-f9029b5b98d3)
 
-Graph between Action and Elapsed time
-กราฟแสดงให้เห็นว่า ค่า action "deny", "drop" มีค่า elapsed time เท่ากับ 0 ส่วน "reset-both" มีค่าระหว่าง 0 และ 1
-จากข้อมูลที่มีสามารถอนุมานได้ว่า หาก elapsed time มีค่ามากกว่า 1 จะเป็น action "allow"
+Fig. 2 (Histogram between Action and Elapsed Time)
+
+According to Figure 2, it can be observed that the "deny" and "drop" actions have an elapsed time of 0, while the "reset-both" action has values between 0 and 1. Based on this observation, we can assume that if the elapsed time is greater than 1, the corresponding action would be "allow."
 
 ![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/6b316a44-0cbc-4294-afc8-f5d99bfe3239)
 
-Graph between Action and Packets
-กราฟแสดงให้เห็นว่า ค่า action "deny", "drop" จำนวน packets เท่ากับ 1 ส่วน "reset-both" มีจำนวนระหว่าง 1 และ 4
-จากข้อมูลที่มีสามารถอนุมานได้ว่า หาก packets มีค่ามากกว่า 4 จะเป็น action "allow"
+Fig. 3 (Histogram between Action and Packets)
+
+According to Figure 3, it can be observed that both the "deny" and "drop" actions have a packet count of 1. On the other hand, the "reset-both" action exhibits values ranging between 1 and 4. Based on this observation, we can make an assumption that the "allow" action would typically have a packet count greater than 4.
 
 ### 2.3 Exploratory of Numerical Features
 ![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/d6fbc54f-7571-4640-94c6-7f547346b903)
