@@ -8,15 +8,18 @@
 ## EDA
 ### 2.1 Exploratory of Action
 ![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/14e928be-6b5d-4c9b-a293-6650c66f0ac3)
+
 Target distribution is imbalance data because "allow" is too high and "reset-both" is very rare. Especially "reset-both" will be hard to predict
 
 ### 2.2 Exploratory of Packets&Elapsed Time
 ![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/fe613afd-16ea-499e-bc6b-f9029b5b98d3)
+
 Graph between Action and Elapsed time
 กราฟแสดงให้เห็นว่า ค่า action "deny", "drop" มีค่า elapsed time เท่ากับ 0 ส่วน "reset-both" มีค่าระหว่าง 0 และ 1
 จากข้อมูลที่มีสามารถอนุมานได้ว่า หาก elapsed time มีค่ามากกว่า 1 จะเป็น action "allow"
 
 ![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/6b316a44-0cbc-4294-afc8-f5d99bfe3239)
+
 Graph between Action and Packets
 กราฟแสดงให้เห็นว่า ค่า action "deny", "drop" จำนวน packets เท่ากับ 1 ส่วน "reset-both" มีจำนวนระหว่าง 1 และ 4
 จากข้อมูลที่มีสามารถอนุมานได้ว่า หาก packets มีค่ามากกว่า 4 จะเป็น action "allow"
