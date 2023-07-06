@@ -18,7 +18,7 @@ There are 12 features in the dataset, which include:
   * pkts_received (Packets Received)
   
 ## 2. EDA
-### 2.1 Action
+### 2.1 Target Variable
 |![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/14e928be-6b5d-4c9b-a293-6650c66f0ac3)
 |:--:| 
 | *Fig. 1: Histogram of Action* |
@@ -35,18 +35,18 @@ According to Figure 2, it can be observed that the "deny" and "drop" actions hav
 
 |![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/6b316a44-0cbc-4294-afc8-f5d99bfe3239)
 |:--:| 
-| *Fig. 3: Histogram between Action and Packets)* |
+| *Fig. 3: Histogram between Action and Packets* |
 
 According to Figure 3, it can be observed that both the "deny" and "drop" actions have a packet count of 1. On the other hand, the "reset-both" action exhibits values ranging between 1 and 4. Based on this observation, we can make an assumption that the "allow" action would typically have a packet count greater than 4.
 
-### 2.3 Numerical Features
+### 2.3 Other Numerical Features
 |![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/d6fbc54f-7571-4640-94c6-7f547346b903)
 |:--:| 
-| *Fig. 4: Histogram of Bytes*|
+| *Fig. 4: Histogram of Bytes* |
 
 |![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/3cbfb86a-4c2d-46d9-bc0d-9e84bdf64a62)
 |:--:| 
-| *Fig. 5: Histogram of Bytes Sent*|
+| *Fig. 5: Histogram of Bytes Sent* |
 
 |![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/8822c9dc-b78a-4cee-85a3-66aed81f7844)
 |:--:| 
@@ -66,28 +66,23 @@ According to Figure 3, it can be observed that both the "deny" and "drop" action
 
 |![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/6e1effb9-db09-4e22-963e-44c774b2fcff)
 |:--:| 
-| *Fig. 10: Histogram of Packets Received*|
+| *Fig. 10: Histogram of Packets Received* |
 
 The figures indicate that none of the seven features exhibit a normal distribution.
 
-### 2.3 Exploratory of Categorical Features
+### 2.3 Categorical Features
 
 |![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/864db275-7d85-4be0-b444-e6ab30fa35b7)
 |:--:| 
-| *Fig. 11:*|
+| *Fig. 11: Frequential Heatmap between action and ports(source port and destination port)*|
 
-crosstable between action and port(source port and destination port) by using top 10 levels only
-จะเห็นว่า port ส่งผลกระทบต่อ action อย่างมีนัยยะสำคัญ ยกตัวอย่างเช่น
-  -source port : 58638 ส่งผลกระทบต่อ action "allow"
-  -destination port : 445 ส่งผลกระทบต่อ action "drop"
+Upon examining the top 10 most frequent instances in the data, we can clearly observe the significant impact of ports on the resulting actions. For instance, when the source port is 58638, it usually leads to an "allow" action. On the other hand, a destination port of 445 often causes a "drop" action to be taken.
 
 |![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/f64af375-4635-4ac1-9b5b-ff821e12a9fc)
 |:--:| 
-| *Fig. 12:* |
+| *Fig. 12: Frequential Heatmap between action and ports(NAT source port and NAT destination port)* |
 
-crosstable between action and port(NAT source port and NAT destination port) by using top 10 levels only
-จะเห็นว่า NAT source port ส่งผลกระทบไม่แน่นอน แต่ในทางกลับกัน NAT destination port ส่งผลกระทบต่อ action อย่างมีนัยยะสำคัญ ยกตัวอย่างเช่น
-  -NAT destination port : 53 ส่งผลกระทบต่อ action "allow"
+The NAT Source Port doesn't really show any specific pattern that affects the "action" variable. However, the NAT Destination Port has a big impact on the "action". For example, when the NAT destination port is 53, it always leads to the "allow" action.
 
 |![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/94fbdd5e-4ade-4899-9f21-a3a408dfb735)
 |:--:| 
@@ -113,8 +108,8 @@ graph between NAT source port and NAT destination port each action
 ## Contributors
 * Itthisak Pratukaew
 * Nattasorn Tanpichai
-* Pinyawat Sabsanhor
 * Patchadol Ratanapittayaruk
+* Pinyawat Sabsanhor
 * Suthida Jumlongrasd
 
 ## Credits
