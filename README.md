@@ -86,24 +86,98 @@ The NAT Source Port doesn't really show any specific pattern that affects the "a
 
 |![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/94fbdd5e-4ade-4899-9f21-a3a408dfb735)
 |:--:| 
-| *Fig. 13* |
+| *Fig. 13 Scatterplot of Ports group by Action* |
 
-graph between source port and destination port each action
-ในส่วนของ action drop มีแพทเทิร์นที่ค่อนข้างชัดเจน
+While other actions seem to have random patterns across different ports, the "drop" action exhibits a noticeable pattern.
+
 
 |![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/097b67e3-f277-4a0b-8306-e71117125961)
 |:--:| 
-| *Fig. 14* |
+| *Fig. 14 Scatterplot of NAT Ports group by Action* |
 
-graph between NAT source port and NAT destination port each action
-
+### 2.4 Imbalanced Data
 
 ## 3. Machine Learning Algorithm
+We picked 4 machine learning algorithms( Random Forest, K-Nearest Neighbors, XG Boost, and Decision Tree) for this firewall data.
+
 ### 3.1 Tuning Hyperparameter
+We are utilizing GridSearchCV with 5-fold cross-validation to tune the hyperparameters, which can be time-consuming depending on the specified hyperparameter inputs.
+Here is the list of hyperparameters we focused on for each model:
+  1. Random Forest
+     * n_estimators
+     * max_depth
+     * min_samples_split
+     * min_samples_leaf
+  2. K-Nearest Neighbors
+     * n_neighbors
+     * weights
+     * algorithm
+  3. XG Boost
+     * object
+     * num_class
+     * eval_metric
+  4. Decision Tree
+     * criterion
+     * splitter
+     * max_depth
+     * min_samples_split
+     * max_features
 
 ## 4. Evaluation
+Once we have obtained the best hyperparameters for each model, we will evaluate their performance using the learning curve and compare the F1-score.
+
 ### 4.1 Plotting Learning Curve
+We plot the learning curve to see the model performance.
+
+```
+train_sizes, train_scores, test_scores = learning_curve(pipe, X_train, y_train, cv=5, scoring='f1_macro')
+
+train_scores_mean = np.mean(train_scores, axis=1)
+train_scores_std = np.std(train_scores, axis=1)
+test_scores_mean = np.mean(test_scores, axis=1)
+test_scores_std = np.std(test_scores, axis=1)
+
+fig, ax = plt.subplots(nrows=1, ncols=1,figsize=(10, 5))
+plt.xlabel("Training examples")
+plt.ylabel("F1-macro Score")
+
+plt.grid(b=True, which='major', color='b', linestyle='-')
+
+plt.fill_between(train_sizes, train_scores_mean - train_scores_std,
+                    train_scores_mean + train_scores_std, alpha=0.1,
+                    color="r")
+plt.fill_between(train_sizes, test_scores_mean - test_scores_std,
+                    test_scores_mean + test_scores_std, alpha=0.1, color="g")
+plt.plot(train_sizes, train_scores_mean, 'o-', color="r",
+            label="Training score")
+plt.plot(train_sizes, test_scores_mean, 'o-', color="g",
+            label="Cross-validation score")
+
+plt.legend(loc="best")
+```
+
+|![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/92035314/778b4524-7f95-44d7-b654-c41122bc8751)
+|:--:| 
+| *Fig. 15 Learning Curve of Random Forest* |
+
+|![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/92035314/6f5821c4-b188-4ac5-a33b-f10a3baf2768)
+|:--:| 
+| *Fig. 16 Learning Curve of K-Nearest Neighbors* |
+
+|![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/92035314/754116e0-9c70-4100-a7de-c5d884420e2d)
+|:--:| 
+| *Fig. 17 Learning Curve of XG Boost* |
+
+|![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/92035314/d61312d5-0019-4114-af63-c148b6dd110d)
+|:--:| 
+| *Fig. 18 Learning Curve of Decision Tree* |
+
 ### 4.2 F1-Score
+
+|**Models**|**Random Forest**|**K-Nearest Neighbors**|**XGBoost**|**Decision Tree**|
+|---|:---:|:---:|:---:|:---:|
+|**F1 Train**|_0.9305_|_0.9774_|__0.9780__|_0.9489_|
+|**F1 Test**|*0.7314*|*0.7259*|*0.7795*|__0.9716__|
 
 ## Contributors
 * Itthisak Pratukaew
