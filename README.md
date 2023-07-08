@@ -68,7 +68,7 @@ According to Figure 3, it can be observed that both the "deny" and "drop" action
 |:--:| 
 | *Fig. 10: Histogram of Packets Received* |
 
-The figures indicate that none of the seven features exhibit a normal distribution.
+Based on the figures presented, it is evident that none of the seven features follow a normal distribution. As a result, we will employ the robust scaler to transform the data. This scaling method is suitable because it is not affected by outliers, allowing us to mitigate their influence on the data.
 
 ### 2.3 Categorical Features
 
