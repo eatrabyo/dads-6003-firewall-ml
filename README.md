@@ -82,7 +82,7 @@ Upon examining the top 10 most frequent instances in the data, we can clearly ob
 |:--:| 
 | *Fig. 12: Frequential Heatmap between action and ports(NAT source port and NAT destination port)* |
 
-The NAT Source Port doesn't really show any specific pattern that affects the "action" variable. However, the NAT Destination Port has a big impact on the "action". For example, when the NAT destination port is 53, it always leads to the "allow" action.
+The NAT Source Port has an impact primarily on the "drop" and "deny" actions, whereas the NAT Destination Port has a significant influence on the overall "action". For instance, when the NAT destination port is set to 53, it consistently results in the "allow" action being taken.
 
 |![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/94fbdd5e-4ade-4899-9f21-a3a408dfb735)
 |:--:| 
@@ -95,6 +95,16 @@ While other actions seem to have random patterns across different ports, the "dr
 |:--:| 
 | *Fig. 14: Scatterplot of NAT Ports group by Action* |
 
+Just like in Figure 13, Figure 14 also shows a clear pattern for the "drop" action in relation to NAT ports. This confirms that specific NAT ports have a noticeable impact on triggering the "drop" action.
+
+Considering that the "allow" action is the most frequent and our focus is on identifying features that distinguish other actions, we have decided to exclude the source port variable. Consequently, we are left with the following six features:
+1. Destination Port
+2. NAT Source Port
+3. NAT Destination Port
+4. Packets
+5. Elapsed Time (sec)
+6. Bytes Received
+   
 ### 2.4 Imbalanced Data
 
 ## 3. Machine Learning Algorithm
@@ -127,7 +137,7 @@ Here is the list of hyperparameters we focused on for each model:
 Once we have obtained the best hyperparameters for each model, we will evaluate their performance using the learning curve and compare the F1 Score.
 
 ### 4.1 Plotting Learning Curve
-We plot the learning curve to see the model performances.
+The code for plotting the learning curve.
 
 ```
 train_sizes, train_scores, test_scores = learning_curve(pipe, x_train, y_train, cv=5, scoring='f1_macro')
