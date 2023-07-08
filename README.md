@@ -86,14 +86,14 @@ The NAT Source Port doesn't really show any specific pattern that affects the "a
 
 |![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/94fbdd5e-4ade-4899-9f21-a3a408dfb735)
 |:--:| 
-| *Fig. 13 Scatterplot of Ports group by Action* |
+| *Fig. 13: Scatterplot of Ports group by Action* |
 
 While other actions seem to have random patterns across different ports, the "drop" action exhibits a noticeable pattern.
 
 
 |![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/114765725/097b67e3-f277-4a0b-8306-e71117125961)
 |:--:| 
-| *Fig. 14 Scatterplot of NAT Ports group by Action* |
+| *Fig. 14: Scatterplot of NAT Ports group by Action* |
 
 ### 2.4 Imbalanced Data
 
@@ -124,13 +124,13 @@ Here is the list of hyperparameters we focused on for each model:
      * max_features
 
 ## 4. Evaluation
-Once we have obtained the best hyperparameters for each model, we will evaluate their performance using the learning curve and compare the F1-score.
+Once we have obtained the best hyperparameters for each model, we will evaluate their performance using the learning curve and compare the F1 Score.
 
 ### 4.1 Plotting Learning Curve
-We plot the learning curve to see the model performance.
+We plot the learning curve to see the model performances.
 
 ```
-train_sizes, train_scores, test_scores = learning_curve(pipe, X_train, y_train, cv=5, scoring='f1_macro')
+train_sizes, train_scores, test_scores = learning_curve(pipe, x_train, y_train, cv=5, scoring='f1_macro')
 
 train_scores_mean = np.mean(train_scores, axis=1)
 train_scores_std = np.std(train_scores, axis=1)
@@ -156,28 +156,40 @@ plt.plot(train_sizes, test_scores_mean, 'o-', color="g",
 plt.legend(loc="best")
 ```
 
-|![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/92035314/778b4524-7f95-44d7-b654-c41122bc8751)
+|![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/92035314/4c5a7631-9ebe-4651-a018-a3f36b2d0cbc)
 |:--:| 
-| *Fig. 15 Learning Curve of Random Forest* |
+| *Fig. 15: Learning Curve of Random Forest* |
 
-|![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/92035314/6f5821c4-b188-4ac5-a33b-f10a3baf2768)
+|![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/92035314/41f62b5d-92aa-442b-ab67-c74f46b7e2cb)
 |:--:| 
-| *Fig. 16 Learning Curve of K-Nearest Neighbors* |
+| *Fig. 16: Learning Curve of K-Nearest Neighbors* |
 
-|![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/92035314/754116e0-9c70-4100-a7de-c5d884420e2d)
+|![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/92035314/a923cc77-e34c-4a18-a58e-b8dd9b0ede93)
 |:--:| 
-| *Fig. 17 Learning Curve of XG Boost* |
+| *Fig. 17: Learning Curve of XG Boost* |
 
-|![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/92035314/d61312d5-0019-4114-af63-c148b6dd110d)
+|![image](https://github.com/eatrabyo/dads-6003-firewall-ml/assets/92035314/e9433858-cc36-4fc6-a5d8-9d06ed0a902a)
 |:--:| 
-| *Fig. 18 Learning Curve of Decision Tree* |
+| *Fig. 18: Learning Curve of Decision Tree* |
 
-### 4.2 F1-Score
+### 4.2 F1 Score
 
-|**Models**|**Random Forest**|**K-Nearest Neighbors**|**XGBoost**|**Decision Tree**|
+|**Models**|**Random Forest**|**K-Nearest Neighbors**|**XG Boost**|**Decision Tree**|
 |---|:---:|:---:|:---:|:---:|
-|**F1 Train**|_0.9305_|_0.9774_|__0.9780__|_0.9489_|
-|**F1 Test**|*0.7314*|*0.7259*|*0.7795*|__0.9716__|
+|**F1 Train**|_0.8760_|_0.9774_|__0.9780__|_0.9231_|
+|**F1 Test**|*0.7345*|__0.7942__|*0.7795*|*0.7437*|
+
+We evaluated the model accuracy using the F1 Score metric. Among the models, XG Boost achieved the highest training score, while K-Nearest Neighbors obtained the highest test score. However, it is essential to note that the scores displayed may not reflect the actual performance of the models.
+To obtain a more reliable assessment of performance, we will conduct cross-validation. This approach allows us to estimate the average performance of the models across multiple folds, providing a better understanding of their generalization capabilities. 
+
+### 4.3 Cross Validation
+
+|**Models**|**Random Forest**|**K-Nearest Neighbors**|**XG Boost**|**Decision Tree**|
+|---|:---:|:---:|:---:|:---:|
+|**CV Score**|_0.8759_|_0.9678_|__0.9690__|_0.9234_|
+|**SD**|*0.0018*|*0.0074*|*0.0081*|*0.006*|
+
+Using 5-fold cross-validation and the F1 score as the evaluation metric, we determined that XG Boost achieved the highest cross-validated score, followed closely by K-Nearest Neighbors. The slight difference in scores between these two models indicates their suitability for this specific type of data. Based on these findings, we can conclude that both XG Boost and K-Nearest Neighbors are well-suited models for our task.
 
 ## Contributors
 * Itthisak Pratukaew
