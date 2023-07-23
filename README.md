@@ -106,12 +106,17 @@ Considering that the "allow" action is the most frequent and our focus is on ide
 6. Bytes Received
    
 ### 2.4 Imbalanced Data
-The action data exhibits an imbalanced distribution, with "allow" being the most frequently occurring action, appearing 37,640 times, while "reset-both" is the least frequent action.
-The result "reset-both" is very low. so we focus on solution oversampling and combine (oversampling and undersampling).
-1. SMOTETomek is a combination of two algorithms, Synthetic Minority Over-sampling Technique (SMOTE) and Tomek links. It is used to address the problem of imbalanced datasets in machine learning. SMOTE generates synthetic samples for the minority class, while Tomek links identify and remove overlapping samples from both the minority and majority classes, resulting in a balanced dataset.
-2. SMOTEENN is another combination of algorithms used for dealing with imbalanced datasets. It combines SMOTE and Edited Nearest Neighbors (ENN) techniques. SMOTE generates synthetic samples for the minority class, and ENN removes samples from both classes that are misclassified by a classifier. SMOTEENN aims to achieve better performance by both oversampling the minority class and undersampling the majority class simultaneously.
-3. RandomOverSampler is a simple technique for oversampling the minority class in an imbalanced dataset. It randomly selects samples from the minority class and replicates them until a balanced distribution is achieved.
-4. SMOTE is a popular oversampling technique used to address class imbalance. It works by generating synthetic samples for the minority class based on the feature space. SMOTE selects a sample from the minority class, identifies its k nearest neighbors, and then creates new samples along the line segments connecting the original sample and its neighbors.
+The action data exhibits an imbalanced distribution, with "allow" being the most frequently occurring action, appearing 37,640 times, while "reset-both" is the least frequent action. Therefore, we chose to do oversampling and undersampling.
+
+* SMOTEENN is another combination of algorithms used for dealing with imbalanced datasets. It combines SMOTE and Edited Nearest Neighbors (ENN) techniques. SMOTE generates synthetic samples for the minority class, and ENN removes samples from both classes that are misclassified by a classifier. SMOTEENN aims to achieve better performance by both oversampling the minority class and undersampling the majority class simultaneously, so we used this algorithm from imbalanced-learn.
+
+After splitting the data with a 30% testing set, we applied the SMOTEENN technique exclusively to the training dataset. As a result, the training dataset increased to 103,326 instances from the original 45,872 instances.
+The distribution of action class are shown below.
+
+|**Actions train dataset**|**allow**|**deny**|**drop**|**reset-both**|
+|---|:---:|:---:|:---:|:---:|
+|**Before**|_26348_|_10491_|_8995_|_38_|
+|**After**|_26234_|_26036_|_25669_|_25387_|
 
 ## 3. Machine Learning Algorithm
 We picked 4 machine learning algorithms( Random Forest, K-Nearest Neighbors, XG Boost, and Decision Tree) for this firewall data.
